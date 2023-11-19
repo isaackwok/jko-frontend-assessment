@@ -1,11 +1,18 @@
 import { twMerge } from "tailwind-merge";
-import { LabelComponent } from "./type";
+import { VariantProps } from "class-variance-authority";
+
 import { LabelVariants } from "./variants";
 
-const Label: LabelComponent = (props) => {
+export type LabelProps = {
+  variants?: VariantProps<typeof LabelVariants>;
+} & React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLSpanElement>,
+  HTMLSpanElement
+>;
+export type LabelComponent = React.FC<LabelProps>;
+
+export const Label: LabelComponent = (props) => {
   return (
     <span {...props} className={twMerge(LabelVariants(), props.className)} />
   );
 };
-
-export { Label };

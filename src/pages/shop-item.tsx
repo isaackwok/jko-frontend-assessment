@@ -1,4 +1,4 @@
-import { Button } from "../components";
+import { Button, IconButton } from "../components";
 import {
   ItemDetailsCard,
   ItemInfoCard,
@@ -31,13 +31,18 @@ const mockData = ShopItem.parse({
 export default function ShopItemPage() {
   return (
     <div className="container h-screen flex flex-col justify-between items-stretch m-auto ">
-      <main className="flex flex-col flex-grow items-stretch gap-2 bg-gray-100 p-3 overflow-auto">
+      <main className="flex flex-col flex-grow items-stretch gap-3 bg-gray-100 p-3 overflow-auto">
         <ItemInfoCard data={mockData} />
         <ItemDetailsCard data={mockData.details} />
       </main>
-      <div className="px-3 py-2 flex flex-row justify-end gap-2 bg-gray-400">
-        <Button variants={{ hierarchy: "secondary" }}>加入購物車</Button>
-        <Button>直接購買</Button>
+      <div className="px-3 py-2 flex flex-row justify-between items-center gap-2 bg-gray-400">
+        <IconButton badge={1} label="購物車" icon="ShoppingCart" />
+        <div className="flex flex-row flex-grow gap-2">
+          <Button className="flex-grow" variants={{ hierarchy: "secondary" }}>
+            加入購物車
+          </Button>
+          <Button className="flex-grow">直接購買</Button>
+        </div>
       </div>
     </div>
   );

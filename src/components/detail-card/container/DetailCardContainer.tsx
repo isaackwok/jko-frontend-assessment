@@ -11,6 +11,7 @@ export type DetailCardProps = {
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
+
 export type DetailCardComponent = React.FC<DetailCardProps>;
 
 const Divider = ({ intent }: { intent?: boolean }) => (
@@ -19,7 +20,10 @@ const Divider = ({ intent }: { intent?: boolean }) => (
   />
 );
 
-const DetailCard: DetailCardComponent = ({ intent = true, ...props }) => {
+export const DetailCard: DetailCardComponent = ({
+  intent = true,
+  ...props
+}) => {
   const contents = React.Children.toArray(props.children);
   return (
     <div {...props} className={twMerge(DetailCardVariants(), props.className)}>
@@ -34,5 +38,3 @@ const DetailCard: DetailCardComponent = ({ intent = true, ...props }) => {
     </div>
   );
 };
-
-export { DetailCard };

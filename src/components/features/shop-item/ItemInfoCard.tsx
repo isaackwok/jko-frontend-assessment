@@ -1,6 +1,5 @@
 import React from "react";
 import { z } from "zod";
-// import { twMerge } from "tailwind-merge";
 
 import {
   DetailCard,
@@ -18,7 +17,7 @@ const ItemInfoCard: React.FC<ItemInfoCardProps> = ({ data, ...props }) => {
   return (
     <DetailCard {...props}>
       <DetailCardContent className="text-white/90">
-        <h1 className="font-semibold leading-6">{data.name}</h1>
+        <h1 className="text-base font-semibold leading-6 mb-1">{data.name}</h1>
         <div className="flex flex-row gap-2 items-center">
           {data.tags.map((tag) => (
             <Label key={tag}>{tag}</Label>

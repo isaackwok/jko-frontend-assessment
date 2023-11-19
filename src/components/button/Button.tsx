@@ -1,8 +1,18 @@
-import { ButtonComponent } from "./type";
 import { twMerge } from "tailwind-merge";
+import { VariantProps } from "class-variance-authority";
+
 import { ButtonVariant } from "./variants";
 
-const Button: ButtonComponent = ({ variants, ...props }) => {
+export type ButtonProps = {
+  variants?: VariantProps<typeof ButtonVariant>;
+} & React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
+
+export type ButtonComponent = React.FC<ButtonProps>;
+
+export const Button: ButtonComponent = ({ variants, ...props }) => {
   return (
     <button
       {...props}
@@ -10,5 +20,3 @@ const Button: ButtonComponent = ({ variants, ...props }) => {
     />
   );
 };
-
-export { Button };
