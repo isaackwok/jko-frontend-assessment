@@ -1,5 +1,5 @@
-import ShopItemPage from "./pages/shop-item";
+import ShopItemPage from "./pages/shop-item"
 
 export default function App() {
-  return <ShopItemPage />;
+  return <ShopItemPage />
 }

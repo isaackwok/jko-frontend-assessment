@@ -1,9 +1,9 @@
-import { Button, IconButton } from "../components";
+import { Button, Carousel, IconButton } from "../components"
 import {
   ItemDetailsCard,
   ItemInfoCard,
-} from "../components/features/shop-item";
-import { ShopItem } from "../schemas/shop-item";
+} from "../components/features/shop-item"
+import { ShopItem } from "../schemas/shop-item"
 const mockData = ShopItem.parse({
   id: "jko-mock-1",
   name: "LN 新竹街口攻城獅台灣封城紫色炫風聯名款限定發售復古球衣系列",
@@ -26,12 +26,15 @@ const mockData = ShopItem.parse({
         "請於訂單備註填寫您需要的號碼，若未填寫將以空白球衣寄出，客製化商品不接受退換貨。",
     },
   ],
-});
+})
 
 export default function ShopItemPage() {
   return (
-    <div className="container h-screen flex flex-col justify-between items-stretch m-auto ">
-      <main className="flex flex-col flex-grow items-stretch gap-3 bg-gray-100 p-3 overflow-auto">
+    <div className="container h-screen flex flex-col bg-gray-100 justify-between items-stretch m-auto ">
+      <div className="w-screen mb-3">
+        <Carousel imgUrls={["https://www.denofgeek.com/wp-content/uploads/2021/04/Pikachu.png?resize=768%2C432"]} />
+      </div>
+      <main className="flex flex-col flex-grow items-stretch gap-3 p-3 overflow-auto">
         <ItemInfoCard data={mockData} />
         <ItemDetailsCard data={mockData.details} />
       </main>
@@ -45,5 +48,5 @@ export default function ShopItemPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
