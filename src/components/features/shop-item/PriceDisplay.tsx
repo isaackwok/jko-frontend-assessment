@@ -1,6 +1,8 @@
 import { z } from "zod"
-import { ShopItemTransformed } from "../../../schemas/shop-item"
 import { twMerge } from "tailwind-merge"
+
+import { ShopItemTransformed } from "../../../schemas/shop-item"
+import { commaize } from "../../../utils/number"
 
 export type PriceDisplayProps = {
   className?: string
@@ -16,17 +18,17 @@ export const PriceDisplay: PriceDisplayComponent = ({
   className
 }) => {
   return (
-    <div className={twMerge('flex flex-row items-center gap-1.5', className)}>
+    <div className={twMerge('flex flex-row items-baseline gap-1.5', className)}>
       <span className="text-white/90 text-xl font-medium">
         {discountMin === discountMax
-          ? `$${discountMin}`
-          : `$${discountMin} ~ $${discountMax}`}
+          ? `$${commaize(discountMin)}`
+          : `$${commaize(discountMin)} ~ $${commaize(discountMax)}`}
       </span>
       {discountMin !== originalMin && (
         <span className="text-white/30 text-sm line-through">
           {originalMin === originalMax
-            ? `$${originalMin}`
-            : `$${originalMin} ~ $${originalMax}`}
+            ? `$${commaize(originalMin)}`
+            : `$${commaize(originalMin)} ~ $${commaize(originalMax)}`}
         </span>
       )}
     </div>
