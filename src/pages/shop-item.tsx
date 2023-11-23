@@ -3,12 +3,8 @@ import {
   ItemDetailsCard,
   ItemInfoCard,
 } from "../components/features/shop-item"
-import { ShopItem } from "../schemas/shop-item"
-const mockData = ShopItem
-  .transform(item => ({
-    ...item,
-    allImages: Array.from(new Set(Object.values(item.variations).flatMap(v => v.imageUrls))),
-  }))
+import { ShopItemTransformed } from "../schemas/shop-item"
+const mockData = ShopItemTransformed
   .parse({
     id: "jko-mock-1",
     name: "LN 新竹街口攻城獅台灣封城紫色炫風聯名款限定發售復古球衣系列",

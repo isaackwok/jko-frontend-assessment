@@ -25,7 +25,8 @@ export const ItemDetail = z.object({
   title: z.string(),
   content: z.string(),
 });
-export const ShopItem = z.object({
+
+export const ShopItemApiResponse = z.object({
   id: z.string(),
   name: z.string(),
   tags: z.array(z.string()),
@@ -34,3 +35,16 @@ export const ShopItem = z.object({
   variations: z.array(ItemVariation),
   variationTypes: z.array(ItemVariationType),
 });
+
+export const ShopItemTransformed = 
+  ShopItemApiResponse
+    .transform(item => ({
+      ...item,
+      prices: {
+        originalMin: Math.min(...Object.values(item.variations).map(v => v.price)),
+        originalMax: Math.max(...Object.values(item.variations).map(v => v.price)),
+        discountMin: Math.min(...Object.values(item.variations).map(v => v.priceAfterDiscount)),
+        discountMax: Math.max(...Object.values(item.variations).map(v => v.priceAfterDiscount)),
+      },
+      allImages: Array.from(new Set(Object.values(item.variations).flatMap(v => v.imageUrls))),
+    }))

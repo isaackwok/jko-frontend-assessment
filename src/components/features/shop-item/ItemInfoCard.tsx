@@ -1,23 +1,25 @@
-import React from "react";
-import { z } from "zod";
+import React from "react"
+import { z } from "zod"
 
 import {
   DetailCard,
   DetailCardContent,
   DetailCardProps,
-} from "../../detail-card";
-import { ShopItem } from "../../../schemas/shop-item";
-import { Label } from "../../label";
+} from "../../detail-card"
+import { ShopItemTransformed } from "../../../schemas/shop-item"
+import { Label } from "../../label"
+import { PriceDisplay } from "./PriceDisplay"
 
 type ItemInfoCardProps = {
-  data: z.infer<typeof ShopItem>;
-} & DetailCardProps;
+  data: z.infer<typeof ShopItemTransformed>
+} & DetailCardProps
 
 const ItemInfoCard: React.FC<ItemInfoCardProps> = ({ data, ...props }) => {
   return (
     <DetailCard {...props}>
       <DetailCardContent className="text-white/90">
         <h1 className="text-base font-semibold leading-6 mb-1">{data.name}</h1>
+        <PriceDisplay {...data.prices} className="mb-2" />
         <div className="flex flex-row gap-2 items-center">
           {data.tags.map((tag) => (
             <Label key={tag}>{tag}</Label>
@@ -32,7 +34,7 @@ const ItemInfoCard: React.FC<ItemInfoCardProps> = ({ data, ...props }) => {
         </ul>
       </DetailCardContent>
     </DetailCard>
-  );
-};
+  )
+}
 
-export { ItemInfoCard };
+export { ItemInfoCard }
