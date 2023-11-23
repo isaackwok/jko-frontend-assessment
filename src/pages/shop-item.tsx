@@ -4,36 +4,171 @@ import {
   ItemInfoCard,
 } from "../components/features/shop-item"
 import { ShopItem } from "../schemas/shop-item"
-const mockData = ShopItem.parse({
-  id: "jko-mock-1",
-  name: "LN 新竹街口攻城獅台灣封城紫色炫風聯名款限定發售復古球衣系列",
-  tags: ["街口結帳享九折優惠", "訂單滿 399 免運費"],
-  remarks: [
-    "請於訂單備註填寫您需要的球員",
-    "球員搭配之號碼不可替換",
-    "球員款客製訂單出貨需要十四個工作天",
-  ],
-  details: [
-    { title: "商品分類", content: "這邊可以填寫純文字內容。" },
-    {
-      title: "商品描述",
-      content:
-        "靈感來自 90 年代復古球衣，洞洞布料搭載拉克蘭袖設計，專業球衣打造休閒風尚，適合日常生活穿搭。",
-    },
-    {
-      title: "商品備註",
-      content:
-        "請於訂單備註填寫您需要的號碼，若未填寫將以空白球衣寄出，客製化商品不接受退換貨。",
-    },
-  ],
-})
+const mockData = ShopItem
+  .transform(item => ({
+    ...item,
+    allImages: Array.from(new Set(Object.values(item.variations).flatMap(v => v.imageUrls))),
+  }))
+  .parse({
+    id: "jko-mock-1",
+    name: "LN 新竹街口攻城獅台灣封城紫色炫風聯名款限定發售復古球衣系列",
+    tags: ["街口結帳享九折優惠", "訂單滿 399 免運費"],
+    remarks: [
+      "請於訂單備註填寫您需要的球員",
+      "球員搭配之號碼不可替換",
+      "球員款客製訂單出貨需要十四個工作天",
+    ],
+    details: [
+      { title: "商品分類", content: "這邊可以填寫純文字內容。" },
+      {
+        title: "商品描述",
+        content:
+          "靈感來自 90 年代復古球衣，洞洞布料搭載拉克蘭袖設計，專業球衣打造休閒風尚，適合日常生活穿搭。",
+      },
+      {
+        title: "商品備註",
+        content:
+          "請於訂單備註填寫您需要的號碼，若未填寫將以空白球衣寄出，客製化商品不接受退換貨。",
+      },
+    ],
+    variations: [
+      {
+        id: 'LIONEERS-TSHIRT-WHITE-S',
+        name: '新竹攻城獅 - 狂獅球衣 S (白)',
+        imageUrls: [
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6392ec32779cce0031640eb3/800x.webp?source_format=jpg",
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6392ec3277a054002e787f3d/800x.webp?source_format=jpg"
+        ],
+        price: 799,
+        priceAfterDiscount: 549,
+        variationIds: ['SIZE-SMALL', 'COLOR-WHITE'],
+        stock: 3,
+      },
+      {
+        id: 'LIONEERS-TSHIRT-WHITE-M',
+        name: '新竹攻城獅 - 狂獅球衣 M  (白)',
+        imageUrls: [
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6392ec32779cce0031640eb3/800x.webp?source_format=jpg",
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6392ec3277a054002e787f3d/800x.webp?source_format=jpg"
+        ],
+        price: 799,
+        priceAfterDiscount: 549,
+        variationIds: ['SIZE-MID', 'COLOR-WHITE'],
+        stock: 0,
+      },
+      {
+        id: 'LIONEERS-TSHIRT-WHITE-L',
+        name: '新竹攻城獅 - 狂獅球衣 L (白)',
+        imageUrls: [
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6392ec32779cce0031640eb3/800x.webp?source_format=jpg",
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6392ec3277a054002e787f3d/800x.webp?source_format=jpg"
+        ],
+        price: 799,
+        priceAfterDiscount: 549,
+        variationIds: ['SIZE-LARGE', 'COLOR-WHITE'],
+        stock: 1,
+      },
+      {
+        id: 'LIONEERS-TSHIRT-BLACK-S',
+        name: '新竹攻城獅 - 狂獅球衣 S (黑)',
+        imageUrls: [
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/638ac1fbc9e31a001f528188/800x.webp?source_format=jpg",
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/638ac1fbc9e31a002b5280ef/800x.webp?source_format=jpg"
+        ],
+        price: 999,
+        priceAfterDiscount: 749,
+        variationIds: ['SIZE-SMALL', 'COLOR-BLACK'],
+        stock: 0,
+      },
+      {
+        id: 'LIONEERS-TSHIRT-BLACK-M',
+        name: '新竹攻城獅 - 狂獅球衣 M (黑)',
+        imageUrls: [
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/638ac1fbc9e31a001f528188/800x.webp?source_format=jpg",
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/638ac1fbc9e31a002b5280ef/800x.webp?source_format=jpg"
+        ],
+        price: 999,
+        priceAfterDiscount: 749,
+        variationIds: ['SIZE-MID', 'COLOR-BLACK'],
+        stock: 0,
+      },
+      {
+        id: 'LIONEERS-TSHIRT-BLACK-L',
+        name: '新竹攻城獅 - 狂獅球衣 L (黑)',
+        imageUrls: [
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/638ac1fbc9e31a001f528188/800x.webp?source_format=jpg",
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/638ac1fbc9e31a002b5280ef/800x.webp?source_format=jpg"
+        ],
+        price: 999,
+        priceAfterDiscount: 749,
+        variationIds: ['SIZE-LARGE', 'COLOR-BLACK'],
+        stock: 0,
+      },
+      {
+        id: 'LIONEERS-TSHIRT-PURPLE-S',
+        name: '新竹攻城獅 - 狂獅球衣 S (紫)',
+        imageUrls: [
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6385f81c2e1e6c0028c6f938/800x.webp?source_format=jpg",
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6385f81c62a5b034e9e1db2a/800x.webp?source_format=jpg"
+        ],
+        price: 799,
+        priceAfterDiscount: 549,
+        variationIds: ['SIZE-SMALL', 'COLOR-PURPLE'],
+        stock: 20,
+      },
+      {
+        id: 'LIONEERS-TSHIRT-PURPLE-M',
+        name: '新竹攻城獅 - 狂獅球衣 M (紫)',
+        imageUrls: [
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6385f81c2e1e6c0028c6f938/800x.webp?source_format=jpg",
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6385f81c62a5b034e9e1db2a/800x.webp?source_format=jpg"
+        ],
+        price: 799,
+        priceAfterDiscount: 549,
+        variationIds: ['SIZE-MID', 'COLOR-PURPLE'],
+        stock: 0,
+      },
+      {
+        id: 'LIONEERS-TSHIRT-PURPLE-L',
+        name: '新竹攻城獅 - 狂獅球衣 L (紫)',
+        imageUrls: [
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6385f81c2e1e6c0028c6f938/800x.webp?source_format=jpg",
+          "https://shoplineimg.com/5eb233ef887c44005422cc79/6385f81c62a5b034e9e1db2a/800x.webp?source_format=jpg"
+        ],
+        price: 799,
+        priceAfterDiscount: 549,
+        variationIds: ['SIZE-LARGE', 'COLOR-PURPLE'],
+        stock: 20,
+      }
+    ],
+    variationTypes: [
+      {
+        id: 'SIZE',
+        name: '尺寸',
+        tags: [
+          { id: 'SIZE-SMALL', name: 'S' },
+          { id: 'SIZE-MID', name: 'M' },
+          { id: 'SIZE-LARGE', name: 'L' },
+        ]
+      },
+      {
+        id: 'COLOR',
+        name: '顏色',
+        tags: [
+          { id: 'COLOR-WHITE', name: '白色' },
+          { id: 'COLOR-BLACK', name: '黑色' },
+          { id: 'COLOR-PURPLE', name: '紫色' },
+        ]
+      },
+    ]
+  })
 
 export default function ShopItemPage() {
   return (
     <div className="container h-screen flex flex-col bg-gray-100 justify-between items-stretch m-auto ">
       <main className="flex flex-col flex-grow gap-3 overflow-auto">
         <div>
-          <Carousel imgUrls={["https://www.denofgeek.com/wp-content/uploads/2021/04/Pikachu.png?resize=768%2C432", "data:image/png;base64,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"]} />
+          <Carousel imgUrls={mockData.allImages} />
         </div>
         <ItemInfoCard className="mx-3" data={mockData} />
         <ItemDetailsCard className="mx-3 mb-3" data={mockData.details} />
