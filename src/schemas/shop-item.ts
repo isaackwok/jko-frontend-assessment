@@ -11,7 +11,7 @@ const ItemVariationType = z.object({
   tags: z.array(ItemVariationTag),
 });
 
-const ItemVariation = z.object({
+export const ItemVariation = z.object({
   id: z.string(),
   name: z.string(),
   imageUrls: z.array(z.string()),

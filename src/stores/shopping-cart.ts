@@ -1,9 +1,18 @@
 import { create } from "zustand";
+import { ItemVariation } from "../schemas/shop-item";
+import { z } from "zod";
 
-export type ShoppingCartStore = {
-  items: string[];
+export type ShoppingCartRecord = {
+  count: number;
+  item: z.infer<typeof ItemVariation>;
 };
 
-export const useShoppingCartStore = create<ShoppingCartStore>(() => ({
-  items: [] as string[],
+export type ShoppingCartStore = {
+  items: ShoppingCartRecord[];
+  addItem: (item: ShoppingCartRecord) => void;
+};
+export const useShoppingCartStore = create<ShoppingCartStore>((set) => ({
+  items: [],
+  addItem: (item: ShoppingCartRecord) =>
+    set((state) => ({ ...state, items: [...state.items, item] })),
 }));

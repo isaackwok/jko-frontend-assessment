@@ -9,12 +9,13 @@ import { IconButton } from "../../icon";
 import { RadioChip, RadioGroup } from "../../radio-group";
 import { NumberSelector } from "../../number-selector";
 import { useShopping } from "../../../features/shop-item";
+import { ShoppingCartRecord } from "../../../stores/shopping-cart";
 
 export type BottomSheetProps = {
   open: boolean;
   data: z.infer<typeof ShopItemApiResponse>;
   onClose: () => void;
-  onComplete: () => void;
+  onComplete: (item: ShoppingCartRecord) => void;
 };
 
 export type BottomSheetComponent = React.FC<BottomSheetProps>;
@@ -30,12 +31,13 @@ export const BottomSheet: BottomSheetComponent = ({
     selectedVariationIds,
     setSelectedVariationIds,
     setNumOfPurchase,
+    numOfPurchase,
   } = useShopping({
     data,
   });
 
   const selectedVariation =
-    shoppingOptions.variations.find((v) =>
+    data.variations.find((v) =>
       v.variationIds.every((vid) =>
         selectedVariationIds.find((selectedVid) => selectedVid === vid)
       )
@@ -106,7 +108,15 @@ export const BottomSheet: BottomSheetComponent = ({
               <span className="text-base font-medium leading-6">購買數量</span>
               <NumberSelector onChange={setNumOfPurchase} />
             </div>
-            <Button className="flex-grow" onClick={onComplete}>
+            <Button
+              className="flex-grow"
+              onClick={() =>
+                onComplete({
+                  item: selectedVariation,
+                  count: numOfPurchase,
+                })
+              }
+            >
               直接購買
             </Button>
           </div>

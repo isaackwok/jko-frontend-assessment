@@ -11,11 +11,15 @@ import { BottomSheet } from "../components/features/shop-item/BottomSheet";
 import { useShoppingCartStore } from "../stores/shopping-cart";
 
 export default function ShopItemPage() {
-  const { items } = useShoppingCartStore();
+  const { items: cartItems, addItem: addItemToCart } = useShoppingCartStore();
   const [isBottomSheetOpen, setIsBottomSheetOpen] = React.useState(false);
+  const [buyType, setBuyType] = React.useState<"addToCart" | "direct">(
+    "addToCart"
+  );
 
-  const handleOpenBottomSheet = () => {
+  const handleOpenBottomSheet = (type: typeof buyType) => {
     setIsBottomSheetOpen(true);
+    setBuyType(type);
   };
 
   return (
@@ -30,20 +34,23 @@ export default function ShopItemPage() {
         </main>
         <div className="px-3 py-2 flex flex-row justify-between items-center gap-2 bg-gray-400">
           <IconButton
-            badge={items.length}
+            badge={cartItems.length}
             label="購物車"
             icon="ShoppingCart"
             className="px-2.5"
           />
           <div className="flex flex-row flex-grow gap-2">
             <Button
-              onClick={handleOpenBottomSheet}
+              onClick={() => handleOpenBottomSheet("addToCart")}
               className="flex-grow"
               variants={{ hierarchy: "secondary" }}
             >
               加入購物車
             </Button>
-            <Button onClick={handleOpenBottomSheet} className="flex-grow">
+            <Button
+              onClick={() => handleOpenBottomSheet("direct")}
+              className="flex-grow"
+            >
               直接購買
             </Button>
           </div>
@@ -53,9 +60,14 @@ export default function ShopItemPage() {
         open={isBottomSheetOpen}
         onClose={() => setIsBottomSheetOpen(false)}
         data={mockShopItem}
-        onComplete={() => {
-          // TODO: add to cart or buy
-
+        onComplete={(item) => {
+          switch (buyType) {
+            case "addToCart":
+              addItemToCart(item);
+              break;
+            case "direct":
+              break;
+          }
           setIsBottomSheetOpen(false);
         }}
       />
