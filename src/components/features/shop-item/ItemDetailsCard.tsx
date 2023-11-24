@@ -14,7 +14,7 @@ const ItemDetailsCard: React.FC<ItemDetailsCardProps> = ({ data, ...props }) => 
     <DetailCard {...props} className={twMerge("leading-[1.375rem] text-sm", props.className)}>
       {
         data.details.map(({ title, content }) => (
-          <DetailCardContent key={title}>
+          <DetailCardContent key={title} className='px-3'>
             <h3 className="text-white/60 mb-1">{title}</h3>
             <p className="text-white/80">{content}</p>
           </DetailCardContent>

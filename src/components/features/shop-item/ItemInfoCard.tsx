@@ -17,7 +17,7 @@ type ItemInfoCardProps = {
 const ItemInfoCard: React.FC<ItemInfoCardProps> = ({ data, ...props }) => {
   return (
     <DetailCard {...props}>
-      <DetailCardContent className="text-white/90">
+      <DetailCardContent className="px-3 text-white/90">
         <h1 className="text-base font-semibold leading-6 mb-1">{data.name}</h1>
         <PriceDisplay {...data.prices} className="mb-2" />
         <div className="flex flex-row gap-2 items-center">
@@ -26,7 +26,7 @@ const ItemInfoCard: React.FC<ItemInfoCardProps> = ({ data, ...props }) => {
           ))}
         </div>
       </DetailCardContent>
-      <DetailCardContent className="leading-[1.375rem] text-sm text-white/90">
+      <DetailCardContent className="px-3 leading-[1.375rem] text-sm text-white/90">
         <ul className="list-disc list-inside pl-2">
           {data.remarks.map((remark) => (
             <li key={remark}>{remark}</li>

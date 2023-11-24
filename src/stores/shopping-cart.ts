@@ -10,9 +10,11 @@ export type ShoppingCartRecord = {
 export type ShoppingCartStore = {
   items: ShoppingCartRecord[];
   addItem: (item: ShoppingCartRecord) => void;
+  removeItem: (itemIdx: number) => void;
 };
 export const useShoppingCartStore = create<ShoppingCartStore>((set) => ({
   items: [],
   addItem: (item: ShoppingCartRecord) =>
     set((state) => ({ ...state, items: [...state.items, item] })),
+    removeItem: (itemIdx: number) => set((state) => ({ ...state, items: state.items.filter((_, idx) => idx !== itemIdx) })),
 }));

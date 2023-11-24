@@ -7,7 +7,7 @@ export const radioChipVariants = cva(
       status: {
         default: ["bg-transparent", "border-gray-700"],
         selected: ["bg-brand", "border-brand"],
-        disabled: ["bg-transparent", "border-gray-600", "text-gray-600"],
+        disabled: ["bg-transparent", "border-gray-600", "text-gray-600", "cursor-not-allowed"],
       },
     },
     defaultVariants: {

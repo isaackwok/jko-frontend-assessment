@@ -1,30 +1,32 @@
-import React from "react";
+import React from "react"
 
-import { Button, Carousel, IconButton } from "../components";
+import { Button, Carousel, IconButton } from "../components"
 import {
   ItemDetailsCard,
   ItemInfoCard,
-} from "../components/features/shop-item";
-import { mockShopItem } from "../mocks/shop-item";
-import { BottomSheet } from "../components/features/shop-item/BottomSheet";
+} from "../components/features/shop-item"
+import { mockShopItem } from "../mocks/shop-item"
+import { BottomSheet } from "../components/features/shop-item/BottomSheet"
 
-import { useShoppingCartStore } from "../stores/shopping-cart";
+import { useShoppingCartStore } from "../stores/shopping-cart"
+import { useNavigate } from "react-router-dom"
 
 export default function ShopItemPage() {
-  const { items: cartItems, addItem: addItemToCart } = useShoppingCartStore();
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = React.useState(false);
+  const { items: cartItems, addItem: addItemToCart } = useShoppingCartStore()
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = React.useState(false)
+  const navigate = useNavigate()
   const [buyType, setBuyType] = React.useState<"addToCart" | "direct">(
     "addToCart"
-  );
+  )
 
   const handleOpenBottomSheet = (type: typeof buyType) => {
-    setIsBottomSheetOpen(true);
-    setBuyType(type);
-  };
+    setIsBottomSheetOpen(true)
+    setBuyType(type)
+  }
 
   return (
     <>
-      <div className="container h-screen flex flex-col bg-gray-100 justify-between items-stretch m-auto ">
+      <div className="container h-screen flex flex-col bg-gray-100 justify-between items-stretch m-auto">
         <main className="flex flex-col flex-grow gap-3 overflow-auto">
           <div>
             <Carousel imgUrls={mockShopItem.allImages} />
@@ -61,13 +63,13 @@ export default function ShopItemPage() {
         onClose={() => setIsBottomSheetOpen(false)}
         data={mockShopItem}
         onComplete={(item) => {
-          addItemToCart(item);
+          addItemToCart(item)
           if (buyType === "addToCart") {
-            // TODO: go to cart page
+            navigate("/cart")
           }
-          setIsBottomSheetOpen(false);
+          setIsBottomSheetOpen(false)
         }}
       />
     </>
-  );
+  )
 }
