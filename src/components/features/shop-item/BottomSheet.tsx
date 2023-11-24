@@ -30,7 +30,6 @@ export const BottomSheet: BottomSheetComponent = ({
     selectedVariationIds,
     setSelectedVariationIds,
     setNumOfPurchase,
-    disabledVariationIds,
   } = useShopping({
     data,
   });
@@ -90,7 +89,7 @@ export const BottomSheet: BottomSheetComponent = ({
                       <RadioChip
                         key={tag.id}
                         value={tag.id}
-                        disabled={disabledVariationIds.has(tag.id)}
+                        disabled={tag.disabled}
                       >
                         {tag.name}
                       </RadioChip>

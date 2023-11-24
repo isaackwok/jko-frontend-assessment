@@ -19,32 +19,11 @@ export const useShopping = (props: UseShoppingProps) => {
   );
   const [numOfPurchase, setNumOfPurchase] = React.useState(1);
 
-  const disabledVariationIds = React.useMemo(() => {
-    const disableIds: string[] = [];
-    shoppingOptions.variationTypes.forEach((variationType) => {
-      variationType.tags.forEach((tag) => {
-        const relatedVariation = shoppingOptions.variations.filter((v) =>
-          v.variationIds.includes(tag.id)
-        );
-        const relatedZeroStockVariation = shoppingOptions.variations.filter(
-          (v) => v.variationIds.includes(tag.id) && v.stock === 0
-        );
-        if (relatedVariation && relatedZeroStockVariation) {
-          if (relatedVariation.length === relatedZeroStockVariation.length) {
-            disableIds.push(tag.id);
-          }
-        }
-      });
-    });
-    return new Set(disableIds);
-  }, [shoppingOptions.variations]);
-
   return {
     shoppingOptions,
     selectedVariationIds,
     setSelectedVariationIds,
     numOfPurchase,
     setNumOfPurchase,
-    disabledVariationIds,
   };
 };

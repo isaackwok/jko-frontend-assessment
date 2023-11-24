@@ -36,15 +36,44 @@ export const ShopItemApiResponse = z.object({
   variationTypes: z.array(ItemVariationType),
 });
 
-export const ShopItemTransformed = 
-  ShopItemApiResponse
-    .transform(item => ({
-      ...item,
-      prices: {
-        originalMin: Math.min(...Object.values(item.variations).map(v => v.price)),
-        originalMax: Math.max(...Object.values(item.variations).map(v => v.price)),
-        discountMin: Math.min(...Object.values(item.variations).map(v => v.priceAfterDiscount)),
-        discountMax: Math.max(...Object.values(item.variations).map(v => v.priceAfterDiscount)),
-      },
-      allImages: Array.from(new Set(Object.values(item.variations).flatMap(v => v.imageUrls))),
-    }))
+export const ShopItemTransformed = ShopItemApiResponse.transform((item) => ({
+  ...item,
+  prices: {
+    originalMin: Math.min(
+      ...Object.values(item.variations).map((v) => v.price)
+    ),
+    originalMax: Math.max(
+      ...Object.values(item.variations).map((v) => v.price)
+    ),
+    discountMin: Math.min(
+      ...Object.values(item.variations).map((v) => v.priceAfterDiscount)
+    ),
+    discountMax: Math.max(
+      ...Object.values(item.variations).map((v) => v.priceAfterDiscount)
+    ),
+  },
+  allImages: Array.from(
+    new Set(Object.values(item.variations).flatMap((v) => v.imageUrls))
+  ),
+  variationTypes: item.variationTypes.map((variationType) => ({
+    ...variationType,
+    tags: variationType.tags.map((tag) => {
+      let disabled = false;
+      const relatedVariation = item.variations.filter((v) =>
+        v.variationIds.includes(tag.id)
+      );
+      const relatedZeroStockVariation = item.variations.filter(
+        (v) => v.variationIds.includes(tag.id) && v.stock === 0
+      );
+      if (relatedVariation && relatedZeroStockVariation) {
+        if (relatedVariation.length === relatedZeroStockVariation.length) {
+          disabled = true;
+        }
+      }
+      return {
+        ...tag,
+        disabled,
+      };
+    }),
+  })),
+}));
