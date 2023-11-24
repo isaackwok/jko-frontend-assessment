@@ -9,6 +9,7 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
+    "@react-spring/web": "^9.7.3",
     "class-variance-authority": "^0.7.0",
     "loader-utils": "3.2.1",
     "localforage": "^1.10.0",

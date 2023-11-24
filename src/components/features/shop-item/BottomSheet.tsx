@@ -9,6 +9,7 @@ import { NumberSelector } from "../../number-selector"
 import { useShopping } from "../../../features/shop-item"
 import { ShoppingCartRecord } from "../../../stores/shopping-cart"
 import { ItemPreviewCardContent } from "./ItemPreviewCardContent"
+import { animated, useSpring } from "@react-spring/web"
 
 export type BottomSheetProps = {
   open: boolean
@@ -25,6 +26,20 @@ export const BottomSheet: BottomSheetComponent = ({
   onClose,
   onComplete,
 }) => {
+  const [overlayStyles, animateOverlay] = useSpring(() => ({
+    from: {
+      opacity: 0
+    },
+    delay: 0,
+  }))
+
+  const [sheetStyles, animateSheet] = useSpring(() => ({
+    from: {
+      transform: 'translateY(100%)'
+    },
+    delay: 0,
+  }))
+
   const {
     shoppingOptions,
     selectedVariationIds,
@@ -42,67 +57,87 @@ export const BottomSheet: BottomSheetComponent = ({
       )
     ) ?? shoppingOptions.variations[0]
 
+  React.useEffect(() => {
+    if (open) {
+      animateOverlay({
+        opacity: 1,
+      })
+      animateSheet({
+        transform: 'translateY(0%)'
+      })
+    } else {
+      animateOverlay({
+        opacity: 0,
+      })
+      animateSheet({
+        transform: 'translateY(100%)'
+      })
+    }
+  }, [open])
+
   if (!open) return null
 
   return (
-    <div className="fixed flex flex-col inset-0 z-50 bg-black/80">
+    <animated.div className="fixed flex flex-col inset-0 z-50 bg-black/80 overflow-hidden" style={overlayStyles}>
       <div className="flex-grow" />
-      <DetailCard className={`transition rounded-none`}>
-        <ItemPreviewCardContent item={selectedVariation} onCloseButtonClicked={onClose} />
-        <DetailCardContent>
-          <div className="flex flex-col gap-3 px-3">
-            {shoppingOptions.variationTypes.map((vType, typeIdx) => (
-              <div key={vType.id}>
-                <h3 className="text-base mb-1">{vType.name}</h3>
-                <RadioGroup
-                  value={
-                    selectedVariation.variationIds.find((vid) =>
-                      vType.tags.find((tag) => vid === tag.id)
-                    ) ?? ""
-                  }
-                  onChange={(variationId) => {
-                    // TODO: update selected variation
-                    const newArr = selectedVariationIds.slice()
-                    newArr[typeIdx] = variationId
-                    setSelectedVariationIds(newArr)
-                  }}
-                >
-                  <div className="flex flex-row gap-2.5">
-                    {vType.tags.map((tag) => (
-                      <RadioChip
-                        key={tag.id}
-                        value={tag.id}
-                        disabled={tag.disabled}
-                      >
-                        {tag.name}
-                      </RadioChip>
-                    ))}
-                  </div>
-                </RadioGroup>
-              </div>
-            ))}
-          </div>
-        </DetailCardContent>
-        <DetailCardContent>
-          <div className="flex flex-col items-stretch gap-2 px-3">
-            <div className="flex flex-row justify-between items-center gap-2 mb-4">
-              <span className="text-base font-medium leading-6">購買數量</span>
-              <NumberSelector onChange={setNumOfPurchase} />
+      <animated.div style={sheetStyles}>
+        <DetailCard className={`transition rounded-none`}>
+          <ItemPreviewCardContent item={selectedVariation} onCloseButtonClicked={onClose} />
+          <DetailCardContent>
+            <div className="flex flex-col gap-3 px-3">
+              {shoppingOptions.variationTypes.map((vType, typeIdx) => (
+                <div key={vType.id}>
+                  <h3 className="text-base mb-1">{vType.name}</h3>
+                  <RadioGroup
+                    value={
+                      selectedVariation.variationIds.find((vid) =>
+                        vType.tags.find((tag) => vid === tag.id)
+                      ) ?? ""
+                    }
+                    onChange={(variationId) => {
+                      // TODO: update selected variation
+                      const newArr = selectedVariationIds.slice()
+                      newArr[typeIdx] = variationId
+                      setSelectedVariationIds(newArr)
+                    }}
+                  >
+                    <div className="flex flex-row gap-2.5">
+                      {vType.tags.map((tag) => (
+                        <RadioChip
+                          key={tag.id}
+                          value={tag.id}
+                          disabled={tag.disabled}
+                        >
+                          {tag.name}
+                        </RadioChip>
+                      ))}
+                    </div>
+                  </RadioGroup>
+                </div>
+              ))}
             </div>
-            <Button
-              className="flex-grow"
-              onClick={() =>
-                onComplete({
-                  item: selectedVariation,
-                  count: numOfPurchase,
-                })
-              }
-            >
-              直接購買
-            </Button>
-          </div>
-        </DetailCardContent>
-      </DetailCard>
-    </div >
+          </DetailCardContent>
+          <DetailCardContent>
+            <div className="flex flex-col items-stretch gap-2 px-3">
+              <div className="flex flex-row justify-between items-center gap-2 mb-4">
+                <span className="text-base font-medium leading-6">購買數量</span>
+                <NumberSelector onChange={setNumOfPurchase} min={1} max={selectedVariation.stock} />
+              </div>
+              <Button
+                className="flex-grow"
+                onClick={() =>
+                  onComplete({
+                    item: selectedVariation,
+                    count: numOfPurchase,
+                  })
+                }
+              >
+                直接購買
+              </Button>
+            </div>
+          </DetailCardContent>
+        </DetailCard>
+      </animated.div>
+    </animated.div >
   )
 }

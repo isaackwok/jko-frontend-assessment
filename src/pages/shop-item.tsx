@@ -12,12 +12,14 @@ import { useShoppingCartStore } from "../stores/shopping-cart"
 import { useNavigate } from "react-router-dom"
 
 export default function ShopItemPage() {
-  const { items: cartItems, addItem: addItemToCart } = useShoppingCartStore()
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = React.useState(false)
   const navigate = useNavigate()
+
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = React.useState(false)
   const [buyType, setBuyType] = React.useState<"addToCart" | "direct">(
     "addToCart"
   )
+
+  const { items: cartItems, addItem: addItemToCart } = useShoppingCartStore()
 
   const handleOpenBottomSheet = (type: typeof buyType) => {
     setIsBottomSheetOpen(true)
@@ -40,6 +42,7 @@ export default function ShopItemPage() {
             label="購物車"
             icon="ShoppingCart"
             className="px-2.5"
+            onClick={() => navigate("/cart")}
           />
           <div className="flex flex-row flex-grow gap-2">
             <Button
