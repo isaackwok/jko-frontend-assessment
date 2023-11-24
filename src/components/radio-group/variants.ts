@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const radioChipVariants = cva(
-  ["rounded-lg", "px-2", "py-1", "border", "text-white", "min-w-[2rem]"],
+  ["rounded-lg", "px-2", "py-1", "border", "text-white", "min-w-[2rem]", "text-p2"],
   {
     variants: {
       status: {

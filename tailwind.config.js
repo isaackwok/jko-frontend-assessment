@@ -20,6 +20,28 @@ module.exports = {
           100: "#17181D",
         },
       },
+      fontSize: {
+        "p2": ["0.875rem", {
+          lineHeight: "1.375rem",
+          fontWeight: "400",
+        }],
+        "p3": ["0.75rem", {
+          lineHeight: "1.25rem",
+          fontWeight: "400",
+        }],
+        "h4": ["1.25rem", {
+          lineHeight: "1.75rem",
+          fontWeight: "500",
+        }],
+        "h5": ["1rem", {
+          lineHeight: "1.5rem",
+          fontWeight: "500",
+        }],
+        "button-large": ["1.125rem", {
+          lineHeight: "1.5rem",
+          fontWeight: "600",
+        }],
+      }
     },
   },
   plugins: [],

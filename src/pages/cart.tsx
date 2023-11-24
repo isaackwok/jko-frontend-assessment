@@ -36,7 +36,7 @@ export const CartPage = () => {
               <ItemPreviewCardContent
                 key={`${item.id}-${idx}`}
                 item={item}
-                renderTitle={() => <h2 className="text-sm">{`${item.name} x ${count}`}</h2>}
+                renderTitle={() => <h2 className="text-p2">{`${item.name} x ${count}`}</h2>}
                 onCloseButtonClicked={() => {
                   removeItem(idx)
                 }}

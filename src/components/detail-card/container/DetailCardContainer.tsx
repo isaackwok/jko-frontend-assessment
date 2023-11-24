@@ -1,5 +1,5 @@
 import React from "react"
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "../../../libs/tailwind-merge"
 import { VariantProps } from "class-variance-authority"
 
 import { DetailCardVariants } from "./variants"

@@ -9,7 +9,7 @@ export const ButtonVariant = cva(
         secondary: ["bg-gray"],
       },
       size: {
-        large: ["px-6", "py-3", "text-lg", "leading-6"],
+        large: ["px-6", "py-3", "text-button-large"],
       },
     },
     defaultVariants: {

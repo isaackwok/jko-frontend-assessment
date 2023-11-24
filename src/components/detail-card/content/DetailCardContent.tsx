@@ -1,16 +1,16 @@
-import { twMerge } from "tailwind-merge";
-import { VariantProps } from "class-variance-authority";
+import { twMerge } from "../../../libs/tailwind-merge"
+import { VariantProps } from "class-variance-authority"
 
-import { DetailCardContentVariants } from "./variants";
+import { DetailCardContentVariants } from "./variants"
 
 export type DetailCardContentProps = {
-  variants?: VariantProps<typeof DetailCardContentVariants>;
+  variants?: VariantProps<typeof DetailCardContentVariants>
 } & React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
->;
+>
 
-export type DetailCardContentComponent = React.FC<DetailCardContentProps>;
+export type DetailCardContentComponent = React.FC<DetailCardContentProps>
 
 export const DetailCardContent: DetailCardContentComponent = (props) => {
   return (
@@ -18,5 +18,5 @@ export const DetailCardContent: DetailCardContentComponent = (props) => {
       {...props}
       className={twMerge(DetailCardContentVariants(), props.className)}
     />
-  );
-};
+  )
+}

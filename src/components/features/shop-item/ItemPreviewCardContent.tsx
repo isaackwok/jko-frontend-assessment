@@ -22,7 +22,7 @@ export const ItemPreviewCardContent: ItemPreviewCardContentComponent = ({ render
         className="w-16 h-16 rounded-lg"
       />
       <div className="flex flex-col flex-grow justify-around">
-        {renderTitle?.() ?? <h2 className="text-sm">{item.name}</h2>}
+        {renderTitle?.() ?? <h2 className="text-p2">{item.name}</h2>}
         <PriceDisplay
           originalMin={item.price}
           originalMax={item.price}

@@ -11,7 +11,7 @@ type ItemDetailsCardProps = {
 
 const ItemDetailsCard: React.FC<ItemDetailsCardProps> = ({ data, ...props }) => {
   return (
-    <DetailCard {...props} className={twMerge("leading-[1.375rem] text-sm", props.className)}>
+    <DetailCard {...props} className={twMerge("text-p2", props.className)}>
       {
         data.details.map(({ title, content }) => (
           <DetailCardContent key={title} className='px-3'>

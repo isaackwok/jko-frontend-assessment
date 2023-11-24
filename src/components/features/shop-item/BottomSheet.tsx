@@ -87,7 +87,7 @@ export const BottomSheet: BottomSheetComponent = ({
             <div className="flex flex-col gap-3 px-3">
               {shoppingOptions.variationTypes.map((vType, typeIdx) => (
                 <div key={vType.id}>
-                  <h3 className="text-base mb-1">{vType.name}</h3>
+                  <h3 className="text-h5 mb-1">{vType.name}</h3>
                   <RadioGroup
                     value={
                       selectedVariation.variationIds.find((vid) =>
@@ -120,7 +120,7 @@ export const BottomSheet: BottomSheetComponent = ({
           <DetailCardContent>
             <div className="flex flex-col items-stretch gap-2 px-3">
               <div className="flex flex-row justify-between items-center gap-2 mb-4">
-                <span className="text-base font-medium leading-6">購買數量</span>
+                <span className="text-h5">購買數量</span>
                 <NumberSelector onChange={setNumOfPurchase} min={1} max={selectedVariation.stock} />
               </div>
               <Button
