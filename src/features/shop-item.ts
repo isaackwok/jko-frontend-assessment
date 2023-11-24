@@ -9,13 +9,13 @@ export type UseShoppingProps = {
 export const useShopping = (props: UseShoppingProps) => {
   const shoppingOptions = React.useMemo(
     () => ShopItemTransformed.parse(props.data),
-    [props.data]
+    [props.data],
   );
   const defaultVariation =
     shoppingOptions.variations.find((v) => v.stock > 0) ??
     shoppingOptions.variations[0];
   const [selectedVariationIds, setSelectedVariationIds] = React.useState(
-    () => defaultVariation.variationIds
+    () => defaultVariation.variationIds,
   );
   const [numOfPurchase, setNumOfPurchase] = React.useState(1);
 

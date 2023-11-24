@@ -1,30 +1,30 @@
-import React from "react"
+import React from "react";
 
-import { Button, Carousel, IconButton } from "../components"
+import { Button, Carousel, IconButton } from "../components";
 import {
   ItemDetailsCard,
   ItemInfoCard,
-} from "../components/features/shop-item"
-import { mockShopItem } from "../mocks/shop-item"
-import { BottomSheet } from "../components/features/shop-item/BottomSheet"
+} from "../components/features/shop-item";
+import { mockShopItem } from "../mocks/shop-item";
+import { BottomSheet } from "../components/features/shop-item/BottomSheet";
 
-import { useShoppingCartStore } from "../stores/shopping-cart"
-import { useNavigate } from "react-router-dom"
+import { useShoppingCartStore } from "../stores/shopping-cart";
+import { useNavigate } from "react-router-dom";
 
 export default function ShopItemPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = React.useState(false)
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = React.useState(false);
   const [buyType, setBuyType] = React.useState<"addToCart" | "direct">(
-    "addToCart"
-  )
+    "addToCart",
+  );
 
-  const { items: cartItems, addItem: addItemToCart } = useShoppingCartStore()
+  const { items: cartItems, addItem: addItemToCart } = useShoppingCartStore();
 
   const handleOpenBottomSheet = (type: typeof buyType) => {
-    setIsBottomSheetOpen(true)
-    setBuyType(type)
-  }
+    setIsBottomSheetOpen(true);
+    setBuyType(type);
+  };
 
   return (
     <>
@@ -66,13 +66,13 @@ export default function ShopItemPage() {
         onClose={() => setIsBottomSheetOpen(false)}
         data={mockShopItem}
         onComplete={(item) => {
-          addItemToCart(item)
+          addItemToCart(item);
           if (buyType === "addToCart") {
-            navigate("/cart")
+            navigate("/cart");
           }
-          setIsBottomSheetOpen(false)
+          setIsBottomSheetOpen(false);
         }}
       />
     </>
-  )
+  );
 }

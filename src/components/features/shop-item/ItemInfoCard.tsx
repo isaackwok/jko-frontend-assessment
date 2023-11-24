@@ -1,18 +1,18 @@
-import React from "react"
-import { z } from "zod"
+import React from "react";
+import { z } from "zod";
 
 import {
   DetailCard,
   DetailCardContent,
   DetailCardProps,
-} from "../../detail-card"
-import { ShopItemTransformed } from "../../../schemas/shop-item"
-import { Label } from "../../label"
-import { PriceDisplay } from "./PriceDisplay"
+} from "../../detail-card";
+import { ShopItemTransformed } from "../../../schemas/shop-item";
+import { Label } from "../../label";
+import { PriceDisplay } from "./PriceDisplay";
 
 type ItemInfoCardProps = {
-  data: z.infer<typeof ShopItemTransformed>
-} & DetailCardProps
+  data: z.infer<typeof ShopItemTransformed>;
+} & DetailCardProps;
 
 const ItemInfoCard: React.FC<ItemInfoCardProps> = ({ data, ...props }) => {
   return (
@@ -34,7 +34,7 @@ const ItemInfoCard: React.FC<ItemInfoCardProps> = ({ data, ...props }) => {
         </ul>
       </DetailCardContent>
     </DetailCard>
-  )
-}
+  );
+};
 
-export { ItemInfoCard }
+export { ItemInfoCard };

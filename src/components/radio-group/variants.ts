@@ -18,5 +18,5 @@ export const radioChipVariants = cva(
     defaultVariants: {
       status: "default",
     },
-  }
+  },
 );

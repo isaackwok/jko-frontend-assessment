@@ -1,24 +1,24 @@
-import { z } from "zod"
-import { twMerge } from "../../../libs/tailwind-merge"
+import { z } from "zod";
+import { twMerge } from "../../../libs/tailwind-merge";
 
-import { ShopItemTransformed } from "../../../schemas/shop-item"
-import { commaize } from "../../../utils/number"
+import { ShopItemTransformed } from "../../../schemas/shop-item";
+import { commaize } from "../../../utils/number";
 
 export type PriceDisplayProps = {
-  className?: string
-} & z.infer<typeof ShopItemTransformed>['prices']
+  className?: string;
+} & z.infer<typeof ShopItemTransformed>["prices"];
 
-export type PriceDisplayComponent = React.FC<PriceDisplayProps>
+export type PriceDisplayComponent = React.FC<PriceDisplayProps>;
 
 export const PriceDisplay: PriceDisplayComponent = ({
   discountMin,
   discountMax,
   originalMax,
   originalMin,
-  className
+  className,
 }) => {
   return (
-    <div className={twMerge('flex flex-row items-center gap-1.5', className)}>
+    <div className={twMerge("flex flex-row items-center gap-1.5", className)}>
       <span className="text-white/90 text-h4">
         {discountMin === discountMax
           ? `$${commaize(discountMin)}`
@@ -32,5 +32,5 @@ export const PriceDisplay: PriceDisplayComponent = ({
         </span>
       )}
     </div>
-  )
-}
+  );
+};

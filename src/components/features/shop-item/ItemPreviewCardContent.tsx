@@ -1,19 +1,24 @@
-import { z } from "zod"
+import { z } from "zod";
 
-import { DetailCardContent } from "../../detail-card"
-import { PriceDisplay } from "./PriceDisplay"
-import { ItemVariation } from "../../../schemas/shop-item"
-import { IconButton } from "../../icon"
+import { DetailCardContent } from "../../detail-card";
+import { PriceDisplay } from "./PriceDisplay";
+import { ItemVariation } from "../../../schemas/shop-item";
+import { IconButton } from "../../icon";
 
 export type ItemPreviewCardContentProps = {
-  item: z.infer<typeof ItemVariation>
-  onCloseButtonClicked: () => void
-  renderTitle?: () => React.ReactNode
-}
+  item: z.infer<typeof ItemVariation>;
+  onCloseButtonClicked: () => void;
+  renderTitle?: () => React.ReactNode;
+};
 
-export type ItemPreviewCardContentComponent = React.FC<ItemPreviewCardContentProps>
+export type ItemPreviewCardContentComponent =
+  React.FC<ItemPreviewCardContentProps>;
 
-export const ItemPreviewCardContent: ItemPreviewCardContentComponent = ({ renderTitle, onCloseButtonClicked, item }) => (
+export const ItemPreviewCardContent: ItemPreviewCardContentComponent = ({
+  renderTitle,
+  onCloseButtonClicked,
+  item,
+}) => (
   <DetailCardContent>
     <div className="flex flex-row gap-2.5 items-stretch px-3">
       <img
@@ -32,4 +37,5 @@ export const ItemPreviewCardContent: ItemPreviewCardContentComponent = ({ render
       </div>
       <IconButton icon="Close" onClick={onCloseButtonClicked} />
     </div>
-  </DetailCardContent>)
+  </DetailCardContent>
+);

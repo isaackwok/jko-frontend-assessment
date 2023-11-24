@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import {persist} from "zustand/middleware";
+import { persist } from "zustand/middleware";
 import { ItemVariation } from "../schemas/shop-item";
 import { z } from "zod";
 
@@ -19,9 +19,14 @@ export const useShoppingCartStore = create(
       items: [],
       addItem: (item: ShoppingCartRecord) =>
         set((state) => ({ ...state, items: [...state.items, item] })),
-        removeItem: (itemIdx: number) => set((state) => ({ ...state, items: state.items.filter((_, idx) => idx !== itemIdx) })),
-    }), {
+      removeItem: (itemIdx: number) =>
+        set((state) => ({
+          ...state,
+          items: state.items.filter((_, idx) => idx !== itemIdx),
+        })),
+    }),
+    {
       name: "shopping-cart",
-    }
-  )
+    },
+  ),
 );
