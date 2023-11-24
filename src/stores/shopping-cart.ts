@@ -1,9 +1,9 @@
-import { create } from "zustand"
+import { create } from "zustand";
 
 export type ShoppingCartStore = {
-  items: string[],
-}
+  items: string[];
+};
 
 export const useShoppingCartStore = create<ShoppingCartStore>(() => ({
   items: [] as string[],
-}))
+}));

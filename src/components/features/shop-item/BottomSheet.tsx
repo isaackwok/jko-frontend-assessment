@@ -1,31 +1,51 @@
-import React from "react"
-import { z } from "zod"
+import React from "react";
+import { z } from "zod";
 
-import { ShopItemTransformed } from "../../../schemas/shop-item"
-import { DetailCard, DetailCardContent } from "../../detail-card"
-import { Button } from "../../button"
-import { PriceDisplay } from "./PriceDisplay"
-import { IconButton } from "../../icon"
+import { ShopItemApiResponse } from "../../../schemas/shop-item";
+import { DetailCard, DetailCardContent } from "../../detail-card";
+import { Button } from "../../button";
+import { PriceDisplay } from "./PriceDisplay";
+import { IconButton } from "../../icon";
+import { RadioChip, RadioGroup } from "../../radio-group";
+import { NumberSelector } from "../../number-selector";
+import { useShopping } from "../../../features/shop-item";
 
 export type BottomSheetProps = {
-  open: boolean
-  onClose: () => void
-  data: z.infer<typeof ShopItemTransformed>
-}
+  open: boolean;
+  data: z.infer<typeof ShopItemApiResponse>;
+  onClose: () => void;
+  onComplete: () => void;
+};
 
-export type BottomSheetComponent = React.FC<BottomSheetProps>
+export type BottomSheetComponent = React.FC<BottomSheetProps>;
 
-export const BottomSheet: BottomSheetComponent = ({ open, onClose, data }) => {
-  const [selectedVariation] = React.useState(
-    () => data.variations.find(v => v.stock > 0) ?? data.variations[0]
-  )
+export const BottomSheet: BottomSheetComponent = ({
+  open,
+  data,
+  onClose,
+  onComplete,
+}) => {
+  const {
+    shoppingOptions,
+    selectedVariationIds,
+    setSelectedVariationIds,
+    setNumOfPurchase,
+    disabledVariationIds,
+  } = useShopping({
+    data,
+  });
 
-  if (!open) return null
+  const selectedVariation =
+    shoppingOptions.variations.find((v) =>
+      v.variationIds.every((vid) =>
+        selectedVariationIds.find((selectedVid) => selectedVid === vid)
+      )
+    ) ?? shoppingOptions.variations[0];
+
+  if (!open) return null;
 
   return (
-    <div
-      className="fixed flex flex-col inset-0 z-50 bg-black/80"
-    >
+    <div className="fixed flex flex-col inset-0 z-50 bg-black/80">
       <div className="flex-grow" />
       <DetailCard className={`transition rounded-none`}>
         <DetailCardContent>
@@ -48,14 +68,51 @@ export const BottomSheet: BottomSheetComponent = ({ open, onClose, data }) => {
           </div>
         </DetailCardContent>
         <DetailCardContent>
+          <div className="flex flex-col gap-3">
+            {shoppingOptions.variationTypes.map((vType, typeIdx) => (
+              <div key={vType.id}>
+                <h3 className="text-base mb-1">{vType.name}</h3>
+                <RadioGroup
+                  value={
+                    selectedVariation.variationIds.find((vid) =>
+                      vType.tags.find((tag) => vid === tag.id)
+                    ) ?? ""
+                  }
+                  onChange={(variationId) => {
+                    // TODO: update selected variation
+                    const newArr = selectedVariationIds.slice();
+                    newArr[typeIdx] = variationId;
+                    setSelectedVariationIds(newArr);
+                  }}
+                >
+                  <div className="flex flex-row gap-2.5">
+                    {vType.tags.map((tag) => (
+                      <RadioChip
+                        key={tag.id}
+                        value={tag.id}
+                        disabled={disabledVariationIds.has(tag.id)}
+                      >
+                        {tag.name}
+                      </RadioChip>
+                    ))}
+                  </div>
+                </RadioGroup>
+              </div>
+            ))}
+          </div>
+        </DetailCardContent>
+        <DetailCardContent>
           <div className="flex flex-col items-stretch gap-2">
-            <div className="flex flex-row justify-between items-center gap-2">
+            <div className="flex flex-row justify-between items-center gap-2 mb-4">
               <span className="text-base font-medium leading-6">購買數量</span>
+              <NumberSelector onChange={setNumOfPurchase} />
             </div>
-            <Button className="flex-grow">直接購買</Button>
+            <Button className="flex-grow" onClick={onComplete}>
+              直接購買
+            </Button>
           </div>
         </DetailCardContent>
       </DetailCard>
     </div>
-  )
-}
+  );
+};
