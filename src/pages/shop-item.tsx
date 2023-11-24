@@ -61,12 +61,9 @@ export default function ShopItemPage() {
         onClose={() => setIsBottomSheetOpen(false)}
         data={mockShopItem}
         onComplete={(item) => {
-          switch (buyType) {
-            case "addToCart":
-              addItemToCart(item);
-              break;
-            case "direct":
-              break;
+          addItemToCart(item);
+          if (buyType === "addToCart") {
+            // TODO: go to cart page
           }
           setIsBottomSheetOpen(false);
         }}
